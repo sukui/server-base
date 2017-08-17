@@ -23,6 +23,11 @@ class TraceTerminator implements RequestTerminator
         /** @var Trace $trace */
         $trace = $context->get('trace');
         $traceHandle = $context->get('traceHandle');
+
+        if ($trace == null) {
+            return;
+        }
+
         if (method_exists($response, 'getException')) {
             $exception = $response->getException();
             if ($exception) {
