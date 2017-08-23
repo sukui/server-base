@@ -47,6 +47,9 @@ class ServiceChainFilter implements RequestFilter
                 $rpcCtx->set($httpKey, $chainValue);
 
                 $context->set("service-chain-value", $chainValue);
+                if (isset($chainValue["name"])) {
+                    $context->set("service-chain-name", $chainValue["name"]);
+                }
             }
         }
     }
