@@ -86,12 +86,18 @@ class MiddlewareManager
 
     public function executeTerminators($response)
     {
-        $middleware = $this->middleware;
-        foreach ($middleware as $filter) {
-            if (!$filter instanceof RequestTerminator) {
-                continue;
+        try {
+            $middleware = $this->middleware;
+            foreach ($middleware as $filter) {
+                if (!$filter instanceof RequestTerminator) {
+                    continue;
+                }
+                yield $filter->terminate($this->request, $response, $this->context);
             }
-            yield $filter->terminate($this->request, $response, $this->context);
+        } catch (\Throwable $t) {
+            echo_exception($t);
+        } catch (\Exception $e) {
+            echo_exception($e);
         }
     }
 
