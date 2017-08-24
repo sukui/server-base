@@ -45,10 +45,17 @@ class MiddlewareManager
 
     public function handleHttpException(\Exception $e)
     {
-        $handlerChain = array_filter($this->middleware, function($v) {
-            return $v instanceof ExceptionHandler;
-        });
-        yield RequestExceptionHandlerChain::getInstance()->handle($e, $handlerChain);
+        try {
+            $handlerChain = array_filter($this->middleware, function($v) {
+                return $v instanceof ExceptionHandler;
+            });
+            yield RequestExceptionHandlerChain::getInstance()->handle($e, $handlerChain);
+        } catch (\Throwable $t) {
+            echo_exception($t);
+        } catch (\Exception $e) {
+            echo_exception($e);
+        }
+
     }
 
     public function handleException(\Exception $e)
