@@ -12,8 +12,9 @@ use Zan\Framework\Network\Http\Server as HttpServer;
 use Zan\Framework\Network\Tcp\Server as TcpServer;
 use Zan\Framework\Network\MqSubscribe\Server as MqServer;
 use Zan\Framework\Network\WebSocket\Server as WebSocketServer;
+use ZanPHP\Contracts\Server\Factory as FactoryContract;
 
-class Factory
+class Factory implements FactoryContract
 {
     private $configName;
     private $host;
