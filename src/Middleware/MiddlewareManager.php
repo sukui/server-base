@@ -45,10 +45,17 @@ class MiddlewareManager
 
     public function handleHttpException(\Exception $e)
     {
-        $handlerChain = array_filter($this->middleware, function($v) {
-            return $v instanceof ExceptionHandler;
-        });
-        yield RequestExceptionHandlerChain::getInstance()->handle($e, $handlerChain);
+        try {
+            $handlerChain = array_filter($this->middleware, function($v) {
+                return $v instanceof ExceptionHandler;
+            });
+            yield RequestExceptionHandlerChain::getInstance()->handle($e, $handlerChain);
+        } catch (\Throwable $t) {
+            echo_exception($t);
+        } catch (\Exception $e) {
+            echo_exception($e);
+        }
+
     }
 
     public function handleException(\Exception $e)
@@ -86,12 +93,18 @@ class MiddlewareManager
 
     public function executeTerminators($response)
     {
-        $middleware = $this->middleware;
-        foreach ($middleware as $filter) {
-            if (!$filter instanceof RequestTerminator) {
-                continue;
+        try {
+            $middleware = $this->middleware;
+            foreach ($middleware as $filter) {
+                if (!$filter instanceof RequestTerminator) {
+                    continue;
+                }
+                yield $filter->terminate($this->request, $response, $this->context);
             }
-            yield $filter->terminate($this->request, $response, $this->context);
+        } catch (\Throwable $t) {
+            echo_exception($t);
+        } catch (\Exception $e) {
+            echo_exception($e);
         }
     }
 
