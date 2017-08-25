@@ -1,17 +1,19 @@
 <?php
 
-namespace Zan\Framework\Network\Server\WorkerStart;
+namespace ZanPHP\ServerBase\WorkerStart;
 
 use ErrorException;
-use Zan\Framework\Contract\Network\Bootable;
-use Zan\Framework\Foundation\Core\Debug;
+use ZanPHP\Contracts\Config\Repository;
+use ZanPHP\Contracts\Foundation\Bootable;
 
 class InitializeErrorHandler implements Bootable
 {
 
     public function bootstrap($server)
     {
-        if (Debug::get()) {
+        $repository = make(Repository::class);
+        $debug = $repository->get('debug');
+        if ($debug) {
             set_error_handler([self::class, 'handleError'], E_ALL & ~E_DEPRECATED);
         } else {
             set_error_handler([self::class, 'handleError'], E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);

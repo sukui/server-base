@@ -6,15 +6,14 @@
  * Time: 上午9:35
  */
 
-namespace Zan\Framework\Network\Server\Middleware;
+namespace ZanPHP\ServerBase\Middleware;
 
-
-use Zan\Framework\Contract\Network\Request;
-use Zan\Framework\Contract\Network\RequestTerminator;
-use Zan\Framework\Contract\Network\Response;
-use Zan\Framework\Sdk\Trace\Constant;
-use Zan\Framework\Sdk\Trace\Trace;
-use Zan\Framework\Utilities\DesignPattern\Context;
+use ZanPHP\Contracts\Network\Request;
+use ZanPHP\Contracts\Network\Response;
+use ZanPHP\Contracts\Trace\Constant;
+use ZanPHP\Coroutine\Context;
+use ZanPHP\Framework\Contract\Network\RequestTerminator;
+use ZanPHP\Trace\Trace;
 
 class TraceTerminator implements RequestTerminator
 {

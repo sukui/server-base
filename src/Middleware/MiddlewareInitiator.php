@@ -1,8 +1,8 @@
 <?php
 
-namespace Zan\Framework\Network\Server\Middleware;
+namespace ZanPHP\ServerBase\Middleware;
 
-use Zan\Framework\Utilities\DesignPattern\Singleton;
+use ZanPHP\Support\Singleton;
 
 class MiddlewareInitiator
 {

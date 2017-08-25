@@ -1,10 +1,10 @@
 <?php
 
-namespace Zan\Framework\Network\Server\WorkerStart;
+namespace ZanPHP\ServerBase\WorkerStart;
 
-use Zan\Framework\Contract\Network\Bootable;
-use Zan\Framework\Network\ServerManager\ServerRegister;
-use Zan\Framework\Network\ServerManager\ServerRegisterInitiator;
+use ZanPHP\Contracts\Foundation\Bootable;
+use ZanPHP\EtcdRegistry\ServerRegister;
+use ZanPHP\EtcdRegistry\ServerRegisterInitiator;
 
 class InitializeEtcdTTLRefreshing implements Bootable
 {

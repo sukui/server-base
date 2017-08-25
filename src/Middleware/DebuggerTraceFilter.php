@@ -1,16 +1,16 @@
 <?php
 
-namespace Zan\Framework\Network\Server\Middleware;
+namespace ZanPHP\ServerBase\Middleware;
 
 use Zan\Framework\Network\Http\Request\Request as HttpRequest;
 use Zan\Framework\Network\Tcp\Request as TcpRequest;
-use Zan\Framework\Contract\Network\Request;
-use Zan\Framework\Contract\Network\RequestFilter;
-use Zan\Framework\Foundation\Core\Debug;
-use Zan\Framework\Utilities\DesignPattern\Context;
 use ZanPHP\Container\Container;
+use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Debugger\Tracer;
+use ZanPHP\Contracts\Network\Request;
 use ZanPHP\Contracts\Trace\Constant;
+use ZanPHP\Coroutine\Context;
+use ZanPHP\Framework\Contract\Network\RequestFilter;
 
 /**
  * Class DebuggerTraceFilter
@@ -22,7 +22,9 @@ class DebuggerTraceFilter implements RequestFilter
 {
     public function doFilter(Request $request, Context $context)
     {
-        if (Debug::get() && Container::getInstance()->has(Tracer::class)) {
+        $repository = make(Repository::class);
+        $debug = $repository->get('debug');
+        if ($debug && Container::getInstance()->has(Tracer::class)) {
             $this->init($request, $context);
         }
     }

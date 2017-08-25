@@ -1,11 +1,10 @@
 <?php
 
-namespace Zan\Framework\Network\Server;
+namespace ZanPHP\ServerBase;
 
-use Zan\Framework\Foundation\Application;
-use Zan\Framework\Foundation\Container\Di;
-use Zan\Framework\Foundation\Core\RunMode;
-use Zan\Framework\Network\Server\Timer\Timer;
+use ZanPHP\Contracts\Foundation\Application;
+use ZanPHP\Framework\Foundation\Container\Di;
+use ZanPHP\Timer\Timer;
 
 abstract class ServerBase
 {
@@ -51,7 +50,7 @@ abstract class ServerBase
         }
 
         // 解决supervisor标准错误重定向文件zend输出无时间戳问题
-        if ($workerId === 0 && RunMode::get() === "online") {
+        if ($workerId === 0 && getenv("runMode") === "online") {
             Timer::tick(60 * 1000, function() { sys_error("tick"); });
         }
     }
@@ -69,7 +68,9 @@ abstract class ServerBase
 
     protected function getCustomizedServerStartItems()
     {
-        $basePath = Application::getInstance()->getBasePath();
+        /** @var Application $application */
+        $application = make(Application::class);
+        $basePath = $application->getBasePath();
         $configFile = $basePath . '/init/ServerStart/.config.php';
 
         if (file_exists($configFile)) {
@@ -81,7 +82,9 @@ abstract class ServerBase
 
     protected function getCustomizedWorkerStartItems()
     {
-        $basePath = Application::getInstance()->getBasePath();
+        /** @var Application $application */
+        $application = make(Application::class);
+        $basePath = $application->getBasePath();
         $configFile = $basePath . '/init/WorkerStart/.config.php';
 
         if (file_exists($configFile)) {
@@ -96,7 +99,9 @@ abstract class ServerBase
      */
     protected function getPidFilePath()
     {
-        return '/tmp/' . strtolower(Application::getInstance()->getName()) . '.pid';
+        /** @var Application $application */
+        $application = make(Application::class);
+        return '/tmp/' . strtolower($application->getName()) . '.pid';
     }
 
     protected function removePidFile()

@@ -6,18 +6,19 @@
  * Time: 下午2:08
  */
 
-namespace Zan\Framework\Network\Server\WorkerStart;
+namespace ZanPHP\ServerBase\WorkerStart;
 
-use Zan\Framework\Contract\Network\Bootable;
-use Zan\Framework\Sdk\Monitor\Hawk;
 use ZanPHP\Container\Container;
+use ZanPHP\Contracts\Foundation\Bootable;
+use ZanPHP\Hawk\Hawk;
+use ZanPHP\Contracts\Hawk\Hawk as HawkContract;
 
 class InitializeHawkMonitor implements Bootable
 {
     public function bootstrap($server)
     {
         $container = Container::getInstance();
-        $container->instance(\ZanPHP\Contracts\Hawk\Hawk::class, Hawk::getInstance());
+        $container->instance(HawkContract::class, Hawk::getInstance());
         Hawk::getInstance()->run($server);
     }
 

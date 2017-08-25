@@ -1,11 +1,11 @@
 <?php
 
-namespace Zan\Framework\Network\Server\Middleware;
+namespace ZanPHP\ServerBase\Middleware;
 
-
-use Zan\Framework\Contract\Network\Request;
-use Zan\Framework\Foundation\Exception\System\InvalidArgumentException;
-use Zan\Framework\Utilities\DesignPattern\Singleton;
+use Zan\Framework\Network\Tcp\Request as TcpRequest;
+use InvalidArgumentException;
+use ZanPHP\Contracts\Network\Request;
+use ZanPHP\Support\Singleton;
 
 class MiddlewareConfig
 {
@@ -43,7 +43,7 @@ class MiddlewareConfig
 
     public function getGroupValue(Request $request, $config)
     {
-        $isTcpGenericRequest = $request instanceof \Zan\Framework\Network\Tcp\Request && $request->isGenericInvoke();
+        $isTcpGenericRequest = $request instanceof TcpRequest && $request->isGenericInvoke();
         if ($isTcpGenericRequest) {
             $genericRoute = $request->getGenericRoute();
         }
