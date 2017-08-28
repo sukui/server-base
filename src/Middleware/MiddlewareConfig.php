@@ -2,7 +2,7 @@
 
 namespace ZanPHP\ServerBase\Middleware;
 
-use Zan\Framework\Network\Tcp\Request as TcpRequest;
+use ZanPHP\Contracts\Tcp\TcpRequest;
 use InvalidArgumentException;
 use ZanPHP\Contracts\Network\Request;
 use ZanPHP\Support\Singleton;

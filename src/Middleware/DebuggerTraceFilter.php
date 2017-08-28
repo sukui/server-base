@@ -2,8 +2,8 @@
 
 namespace ZanPHP\ServerBase\Middleware;
 
-use Zan\Framework\Network\Http\Request\Request as HttpRequest;
-use Zan\Framework\Network\Tcp\Request as TcpRequest;
+use ZanPHP\Contracts\Http\HttpRequest;
+use ZanPHP\Contracts\Tcp\TcpRequest;
 use ZanPHP\Container\Container;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Debugger\Tracer;

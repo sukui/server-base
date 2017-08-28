@@ -8,9 +8,9 @@
 
 namespace ZanPHP\ServerBase\Middleware;
 
-use Zan\Framework\Network\Tcp\Request as TcpRequest;
-use Zan\Framework\Network\Http\Request\Request as HttpRequest;
-use Zan\Framework\Network\WebSocket\Request as WebSocketRequest;
+use ZanPHP\Contracts\Tcp\TcpRequest;
+use ZanPHP\Contracts\Http\HttpRequest;
+use ZanPHP\Contracts\WebSocket\WebSocketRequest;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Network\Request;
 use ZanPHP\Contracts\Trace\Constant;
