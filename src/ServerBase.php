@@ -3,7 +3,7 @@
 namespace ZanPHP\ServerBase;
 
 use ZanPHP\Contracts\Foundation\Application;
-use ZanPHP\Framework\Foundation\Container\Di;
+use ZanPHP\Support\Di;
 use ZanPHP\Timer\Timer;
 
 abstract class ServerBase

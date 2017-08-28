@@ -12,7 +12,7 @@ use Zan\Framework\Network\MqSubscribe\Server as MqServer;
 use Zan\Framework\Network\WebSocket\Server as WebSocketServer;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Server\Factory as FactoryContract;
-use ZanPHP\Framework\Foundation\Container\Di;
+use ZanPHP\Support\Di;
 
 class Factory implements FactoryContract
 {
