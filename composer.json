@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Zan\\Framework\\Network\\Server\\": "src/"
+      "ZanPHP\\ServerBase\\": "src/"
     }
   },
   "extra": {

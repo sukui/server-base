@@ -1,8 +1,7 @@
 <?php
+namespace Zan\Framework\Network\Server\WorkerStart;
 
-namespace ZanPHP\ServerBase\WorkerStart;
-
-use ZanPHP\EtcdRegistry\ServerDiscoveryInitiator;
+use Zan\Framework\Network\ServerManager\ServerDiscoveryInitiator;
 
 class InitializeServerDiscovery
 {
