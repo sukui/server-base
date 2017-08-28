@@ -1,14 +1,15 @@
 <?php
 
-namespace ZanPHP\ServerBase\Middleware;
+namespace Zan\Framework\Network\Server\Middleware;
 
+use Zan\Framework\Contract\Foundation\ExceptionHandler;
+use Zan\Framework\Contract\Network\Request;
+use Zan\Framework\Contract\Network\RequestFilter;
+use Zan\Framework\Contract\Network\RequestPostFilter;
+use Zan\Framework\Contract\Network\RequestTerminator;
 use Zan\Framework\Network\Http\RequestExceptionHandlerChain;
-use ZanPHP\Contracts\Foundation\ExceptionHandler;
-use ZanPHP\Contracts\Network\Request;
-use ZanPHP\Coroutine\Context;
-use ZanPHP\Framework\Contract\Network\RequestFilter;
-use ZanPHP\Framework\Contract\Network\RequestPostFilter;
-use ZanPHP\Framework\Contract\Network\RequestTerminator;
+use Zan\Framework\Utilities\DesignPattern\Context;
+
 
 class MiddlewareManager
 {

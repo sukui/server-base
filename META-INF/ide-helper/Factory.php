@@ -1,8 +1,10 @@
 <?php
 
-namespace ZanPHP\ServerBase;
+namespace Zan\Framework\Network\Server;
 
 use RuntimeException;
+use Zan\Framework\Foundation\Container\Di;
+use Zan\Framework\Foundation\Core\Config;
 use swoole_http_server as SwooleHttpServer;
 use swoole_server as SwooleTcpServer;
 use swoole_websocket_server as SwooleWebSocketServer;
@@ -10,9 +12,7 @@ use Zan\Framework\Network\Http\Server as HttpServer;
 use Zan\Framework\Network\Tcp\Server as TcpServer;
 use Zan\Framework\Network\MqSubscribe\Server as MqServer;
 use Zan\Framework\Network\WebSocket\Server as WebSocketServer;
-use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Server\Factory as FactoryContract;
-use ZanPHP\Framework\Foundation\Container\Di;
 
 class Factory implements FactoryContract
 {
@@ -28,8 +28,7 @@ class Factory implements FactoryContract
 
     private function validConfig()
     {
-        $repository = make(Repository::class);
-        $config = $repository->get($this->configName);
+        $config = Config::get($this->configName);
         if (empty($config)) {
             throw new RuntimeException('server config not found, see: http://zanphpdoc.zanphp.io/config/server.html');
         }

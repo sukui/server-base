@@ -6,24 +6,23 @@
  * Time: 下午6:29
  */
 
-namespace ZanPHP\ServerBase\Middleware;
+namespace Zan\Framework\Network\Server\Middleware;
 
+use Zan\Framework\Contract\Network\Request;
+use Zan\Framework\Contract\Network\RequestFilter;
+use Zan\Framework\Foundation\Core\Config;
+use Zan\Framework\Sdk\Trace\Constant;
+use Zan\Framework\Sdk\Trace\Trace;
+use Zan\Framework\Utilities\DesignPattern\Context;
 use Zan\Framework\Network\Tcp\Request as TcpRequest;
 use Zan\Framework\Network\Http\Request\Request as HttpRequest;
 use Zan\Framework\Network\WebSocket\Request as WebSocketRequest;
-use ZanPHP\Contracts\Config\Repository;
-use ZanPHP\Contracts\Network\Request;
-use ZanPHP\Contracts\Trace\Constant;
-use ZanPHP\Coroutine\Context;
-use ZanPHP\Framework\Contract\Network\RequestFilter;
-use ZanPHP\Trace\Trace;
 
 class TraceFilter implements RequestFilter
 {
     public function doFilter(Request $request, Context $context)
     {
-        $repository = make(Repository::class);
-        $config = $repository->get('monitor.trace');
+        $config = Config::get('monitor.trace');
 
         $rootId = $parentId = 'null';
         $name = '';
