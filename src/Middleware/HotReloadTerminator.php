@@ -13,7 +13,7 @@ class HotReloadTerminator implements RequestTerminator
 {
     public function terminate(Request $request, Response $response, Context $context)
     {
-        $isHotReload = Env::get('ZAN_HOT_RELOAD', false);
+        $isHotReload = Env::get('ZANPHP_HOT_RELOAD', false);
         if ($isHotReload) {
             WorkerMonitor::getInstance()->closePre();
         }
