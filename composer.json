@@ -2,11 +2,24 @@
   "name": "zanphp/server-base",
   "require": {
     "php": ">=5.6",
-    "zanphp/framework": "dev-master"
+    "zanphp/framework": "dev-master",
+    "zanphp/coroutine": "dev-master",
+    "zanphp/contracts": "dev-master",
+    "zanphp/nosql": "dev-master",
+    "zanphp/database": "dev-master",
+    "zanphp/support": "dev-master",
+    "zanphp/rpc-context": "dev-master",
+    "zanphp/trace": "dev-master",
+    "zanphp/log": "dev-master",
+    "zanphp/connection-pool": "dev-master",
+    "zanphp/etcd-registry": "dev-master",
+    "zanphp/hawk": "dev-master",
+    "zanphp/worker-monitor": "dev-master",
+    "zanphp/timer": "dev-master"
   },
   "autoload": {
     "psr-4": {
-      "Zan\\Framework\\Network\\Server\\": "src/"
+      "ZanPHP\\ServerBase\\": "src/"
     }
   },
   "extra": {
