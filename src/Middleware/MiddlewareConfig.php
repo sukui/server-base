@@ -123,6 +123,7 @@ class MiddlewareConfig
             CacheTerminator::class,
             DebuggerTraceTerminator::class,
             TraceTerminator::class,
+            HotReloadTerminator::class,
         ];
         return array_merge($terminators, $this->zanTerminators, $baseTerminators);
     }
