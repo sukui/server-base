@@ -20,6 +20,13 @@ abstract class ServerBase
     public function __construct($swooleServer, array $config)
     {
         $this->swooleServer = $swooleServer;
+
+        //热加载强制修改worker_num
+        $isHotLoad = getenv('ZANPHP_HOT_RELOAD');
+        if ($isHotLoad) {
+            $config['worker_num'] = 1;
+        }
+
         $this->swooleServer->set($config);
     }
 
