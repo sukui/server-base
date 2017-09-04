@@ -6,7 +6,6 @@ use RuntimeException;
 use swoole_http_server as SwooleHttpServer;
 use swoole_server as SwooleTcpServer;
 use swoole_websocket_server as SwooleWebSocketServer;
-use Zan\Framework\Network\MqSubscribe\Server as MqServer;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Server\Factory as FactoryContract;
 use ZanPHP\Support\Di;
@@ -79,7 +78,7 @@ class Factory implements FactoryContract
 
         $swooleServer = Di::make(SwooleHttpServer::class, [$this->host, $this->port], true);
 
-        $server = Di::make(MqServer::class, [$swooleServer, $this->serverConfig]);
+        $server = make("ServerBase.MqServer", [$swooleServer, $this->serverConfig]);
 
         return $server;
     }
