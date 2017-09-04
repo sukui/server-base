@@ -6,10 +6,7 @@ use RuntimeException;
 use swoole_http_server as SwooleHttpServer;
 use swoole_server as SwooleTcpServer;
 use swoole_websocket_server as SwooleWebSocketServer;
-use Zan\Framework\Network\Http\Server as HttpServer;
-use Zan\Framework\Network\Tcp\Server as TcpServer;
 use Zan\Framework\Network\MqSubscribe\Server as MqServer;
-use Zan\Framework\Network\WebSocket\Server as WebSocketServer;
 use ZanPHP\Contracts\Config\Repository;
 use ZanPHP\Contracts\Server\Factory as FactoryContract;
 use ZanPHP\Support\Di;
@@ -54,7 +51,7 @@ class Factory implements FactoryContract
 
         $swooleServer = Di::make(SwooleHttpServer::class, [$this->host, $this->port], true);
 
-        $server = Di::make(HttpServer::class, [$swooleServer, $this->serverConfig]);
+        $server = make("ServerBase.HttpServer", [$swooleServer, $this->serverConfig]);
 
         return $server;
     }
@@ -68,7 +65,7 @@ class Factory implements FactoryContract
 
         $swooleServer = Di::make(SwooleTcpServer::class, [$this->host, $this->port], true);
 
-        $server = Di::make(TcpServer::class, [$swooleServer, $this->serverConfig]);
+        $server = make("ServerBase.TcpServer", [$swooleServer, $this->serverConfig]);
 
         return $server;
     }
@@ -102,7 +99,7 @@ class Factory implements FactoryContract
         }
         $swooleServer = Di::make(SwooleWebSocketServer::class, [$this->host, $this->port], true);
 
-        $server = Di::make(WebSocketServer::class, [$swooleServer, $this->serverConfig]);
+        $server = make("ServerBase.WSServer", [$swooleServer, $this->serverConfig]);
 
         return $server;
     }
