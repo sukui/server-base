@@ -2,28 +2,20 @@
 
 namespace Zan\Framework\Network\Server\ServerStart;
 
-use Zan\Framework\Contract\Network\Bootable;
-use Zan\Framework\Foundation\Core\Config;
-use Zan\Framework\Sdk\Log\Log;
+use ZanPHP\Contracts\Foundation\Bootable;
 
 class InitLogConfig implements Bootable
 {
+    private $InitLogConfig;
+
+    public function __construct()
+    {
+        $this->InitLogConfig = new \ZanPHP\ServerBase\ServerStart\InitLogConfig();
+    }
 
     public function bootstrap($server)
     {
-        $configArray = Config::get('log');
-        if (!$configArray) {
-            return true;
-        }
-
-        $this->initLog($configArray);
-    }
-
-    private function initLog($configArray)
-    {
-        foreach ($configArray as $key => $config) {
-            Log::make($key);
-        }
+        $this->InitLogConfig->bootstrap($server);
     }
 
 }

@@ -2,16 +2,20 @@
 
 namespace Zan\Framework\Network\Server\WorkerStart;
 
-use Zan\Framework\Contract\Network\Bootable;
-use Zan\Framework\Foundation\Core\Config;
-use Zan\Framework\Network\Server\Monitor\Worker;
+use ZanPHP\Contracts\Foundation\Bootable;
 
 class InitializeWorkerMonitor implements Bootable
 {
+    private $InitializeWorkerMonitor;
+
+    public function __construct()
+    {
+        $this->InitializeWorkerMonitor = new \ZanPHP\ServerBase\WorkerStart\InitializeWorkerMonitor();
+    }
+
     public function bootstrap($server)
     {
-        $config = Config::get('server.monitor');
-        Worker::getInstance()->init($server,$config);
+        $this->InitializeWorkerMonitor->bootstrap($server);
     }
 
 }
