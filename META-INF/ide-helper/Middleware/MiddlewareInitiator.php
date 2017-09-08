@@ -2,31 +2,32 @@
 
 namespace Zan\Framework\Network\Server\Middleware;
 
-use Zan\Framework\Utilities\DesignPattern\Singleton;
-
 class MiddlewareInitiator
 {
-    use Singleton;
+    private $MiddlewareInitiator;
+
+    public function __construct()
+    {
+        $this->MiddlewareInitiator = new \ZanPHP\ServerBase\Middleware\MiddlewareInitiator();
+    }
 
     public function initConfig(array $config = [])
     {
-        $config['match'] = isset($config['match']) ? $config['match'] : [];
-        MiddlewareConfig::getInstance()->setConfig($config);
+        $this->MiddlewareInitiator->initConfig($config = []);
     }
 
     public function initExceptionHandlerConfig(array $exceptionHandlerConfig)
     {
-        $exceptionHandlerConfig['match'] = isset($exceptionHandlerConfig['match']) ? $exceptionHandlerConfig['match'] : [];
-        MiddlewareConfig::getInstance()->setExceptionHandlerConfig($exceptionHandlerConfig);
+        $this->MiddlewareInitiator->initExceptionHandlerConfig($exceptionHandlerConfig);
     }
 
     public function initZanFilters(array $zanFilters = [])
     {
-        MiddlewareConfig::getInstance()->setZanFilters($zanFilters);
+        $this->MiddlewareInitiator->initZanFilters($zanFilters);
     }
 
     public function initZanTerminators(array $zanTerminators = [])
     {
-        MiddlewareConfig::getInstance()->setZanTerminators($zanTerminators);
+        $this->MiddlewareInitiator->initZanTerminators($zanTerminators);
     }
 } 
