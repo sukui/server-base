@@ -1,45 +1,23 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Demon
- * Date: 16/5/10
- * Time: 上午9:35
- */
 
 namespace Zan\Framework\Network\Server\Middleware;
 
-
-use Zan\Framework\Contract\Network\Request;
-use Zan\Framework\Contract\Network\RequestTerminator;
-use Zan\Framework\Contract\Network\Response;
-use Zan\Framework\Sdk\Trace\Constant;
-use Zan\Framework\Sdk\Trace\Trace;
-use Zan\Framework\Utilities\DesignPattern\Context;
+use ZanPHP\Contracts\Network\Request;
+use ZanPHP\Contracts\Network\Response;
+use ZanPHP\Coroutine\Context;
+use ZanPHP\Framework\Contract\Network\RequestTerminator;
 
 class TraceTerminator implements RequestTerminator
 {
+    private $TraceTerminator;
+
+    public function __construct()
+    {
+        $this->TraceTerminator = new \ZanPHP\ServerBase\Middleware\TraceTerminator();
+    }
+
     public function terminate(Request $request, Response $response, Context $context)
     {
-        /** @var Trace $trace */
-        $trace = $context->get('trace');
-        $traceHandle = $context->get('traceHandle');
-
-        if ($trace == null) {
-            return;
-        }
-
-        if (method_exists($response, 'getException')) {
-            $exception = $response->getException();
-            if ($exception) {
-                $trace->commit($traceHandle, $exception);
-            } else {
-                $trace->commit($traceHandle, Constant::SUCCESS);
-            }
-        } else {
-            $trace->commit($traceHandle, Constant::SUCCESS);
-        }
-
-        //send数据
-        yield $trace->send();
+        $this->TraceTerminator->terminate($request, $response, $context);
     }
 }

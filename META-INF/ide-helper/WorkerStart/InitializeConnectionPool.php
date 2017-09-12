@@ -2,14 +2,19 @@
 
 namespace Zan\Framework\Network\Server\WorkerStart;
 
-use Zan\Framework\Foundation\Core\Config;
-use Zan\Framework\Network\Connection\ConnectionInitiator;
-use Zan\Framework\Contract\Network\Bootable;
+use ZanPHP\Contracts\Foundation\Bootable;
 
 class InitializeConnectionPool implements Bootable
 {
+    private $InitializeConnectionPool;
+
+    public function __construct()
+    {
+        $this->InitializeConnectionPool = new \ZanPHP\ServerBase\WorkerStart\InitializeConnectionPool();
+    }
+
     public function bootstrap($server)
     {
-        ConnectionInitiator::getInstance()->init('connection', $server);
+        $this->InitializeConnectionPool->bootstrap($server);
     }
 }

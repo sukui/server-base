@@ -2,30 +2,22 @@
 
 namespace Zan\Framework\Network\Server\Middleware;
 
-
-use Zan\Framework\Contract\Network\Request;
-use Zan\Framework\Contract\Network\RequestTerminator;
-use Zan\Framework\Contract\Network\Response;
-use ZanPHP\Contracts\Debugger\Tracer;
+use ZanPHP\Contracts\Network\Request;
+use ZanPHP\Contracts\Network\Response;
 use ZanPHP\Coroutine\Context;
+use ZanPHP\Framework\Contract\Network\RequestTerminator;
 
-/**
- * Class DebuggerTraceTerminator
- * @package Zan\Framework\Network\Server\Middleware
- * TODO 利用SPI自动添加Terminator
- */
 class DebuggerTraceTerminator implements RequestTerminator
 {
+    private $DebuggerTraceTerminator;
+
+    public function __construct()
+    {
+        $this->DebuggerTraceTerminator = new \ZanPHP\ServerBase\Middleware\DebuggerTraceTerminator();
+    }
+
     public function terminate(Request $request, Response $response, Context $context)
     {
-        /** @var Tracer $trace */
-        $trace = $context->get('debugger_trace');
-        if ($trace instanceof Tracer) {
-            $exception = null;
-            if (method_exists($response, "getException")) {
-                $exception = $response->getException();
-            }
-            $trace->endRequest($exception);
-        }
+        $this->DebuggerTraceTerminator->terminate($request, $response, $context);
     }
 }
