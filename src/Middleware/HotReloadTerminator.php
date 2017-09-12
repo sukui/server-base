@@ -15,6 +15,7 @@ class HotReloadTerminator implements RequestTerminator
     {
         $isHotReload = Env::get('ZANPHP_HOT_RELOAD', false);
         if ($isHotReload) {
+			yield taskSleep(200);
             WorkerMonitor::getInstance()->closePre();
         }
     }

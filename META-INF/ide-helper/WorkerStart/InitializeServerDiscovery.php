@@ -1,16 +1,18 @@
 <?php
-namespace Zan\Framework\Network\Server\WorkerStart;
 
-use Zan\Framework\Network\ServerManager\ServerDiscoveryInitiator;
+namespace Zan\Framework\Network\Server\WorkerStart;
 
 class InitializeServerDiscovery
 {
-    /**
-     * @param $server
-     * @param $workerId
-     */
+    private $InitializeServerDiscovery;
+
+    public function __construct()
+    {
+        $this->InitializeServerDiscovery = new \ZanPHP\ServerBase\WorkerStart\InitializeServerDiscovery();
+    }
+
     public function bootstrap($server, $workerId)
     {
-        ServerDiscoveryInitiator::getInstance()->init($workerId);
+        $this->InitializeServerDiscovery->bootstrap($server, $workerId);
     }
 }

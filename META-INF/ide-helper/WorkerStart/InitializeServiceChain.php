@@ -1,25 +1,18 @@
 <?php
+
 namespace Zan\Framework\Network\Server\WorkerStart;
-
-
-use Zan\Framework\Foundation\Core\RunMode;
-use ZanPHP\Container\Container;
-use ZanPHP\Contracts\ServiceChain\ServiceChainer;
 
 class InitializeServiceChain
 {
-    /**
-     * @param $server
-     * @param $workerId
-     */
+    private $InitializeServiceChain;
+
+    public function __construct()
+    {
+        $this->InitializeServiceChain = new \ZanPHP\ServerBase\WorkerStart\InitializeServiceChain();
+    }
+
     public function bootstrap($server, $workerId)
     {
-        // make & initialize discovering serviceChain
-        if (RunMode::get() !== "online") {
-            $container = Container::getInstance();
-            if ($container->has(ServiceChainer::class)) {
-                $container->make(ServiceChainer::class);
-            }
-        }
+        $this->InitializeServiceChain->bootstrap($server, $workerId);
     }
 }
