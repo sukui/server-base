@@ -51,7 +51,7 @@ class TraceFilter implements RequestFilter
             $type = Constant::NOVA_SERVER;
         } else if ($request instanceof HttpRequest) {
             $type = Constant::HTTP;
-            $name = $request->getUrl();
+            $name = $request->getRoute();
         } else if ($request instanceof WebSocketRequest) {
             $type = Constant::WEBSOCKET;
             $name = $request->getRoute();
