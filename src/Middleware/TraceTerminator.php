@@ -43,7 +43,11 @@ class TraceTerminator implements RequestTerminator
         if (method_exists($response, 'getException')) {
             $exception = $response->getException();
             if ($exception) {
-                $trace->commit($traceHandle, $exception->getTraceAsString(), $data);
+                if($exception instanceof \Exception){
+                    $trace->commit($traceHandle, $exception->getTraceAsString(), $data);
+                }else{
+                    $trace->commit($traceHandle, $exception, $data);
+                }
             } else {
                 $trace->commit($traceHandle, Constant::SUCCESS,$data);
             }
