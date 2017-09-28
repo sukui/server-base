@@ -2,7 +2,7 @@
 
 namespace ZanPHP\ServerBase\Middleware;
 
-use Zan\Framework\Network\Http\RequestExceptionHandlerChain;
+use ZanPHP\HttpServer\RequestExceptionHandlerChain;
 use ZanPHP\Contracts\Foundation\ExceptionHandler;
 use ZanPHP\Contracts\Network\Request;
 use ZanPHP\Coroutine\Context;
