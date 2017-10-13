@@ -15,6 +15,10 @@ class ServiceChainFilter implements RequestFilter
 {
     public function doFilter(Request $request, Context $context)
     {
+        if (getenv("runMode") === "online") {
+            return;
+        }
+
         $container = Container::getInstance();
 
         if ($container->has(ServiceChainer::class)) {
