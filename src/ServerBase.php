@@ -5,6 +5,7 @@ namespace ZanPHP\ServerBase;
 use ZanPHP\Contracts\Foundation\Application;
 use ZanPHP\Support\Di;
 use ZanPHP\Timer\Timer;
+use ZanPHP\Cache\APCuStore;
 
 abstract class ServerBase
 {
@@ -17,6 +18,8 @@ abstract class ServerBase
 
     public $swooleServer;
 
+    private $workerStore;
+
     public function __construct($swooleServer, array $config)
     {
         $this->swooleServer = $swooleServer;
@@ -26,6 +29,8 @@ abstract class ServerBase
         if ($isHotLoad) {
             $config['worker_num'] = 1;
         }
+
+        $this->workerStore = new APCuStore("worker");
 
         $this->swooleServer->set($config);
     }
@@ -60,6 +65,9 @@ abstract class ServerBase
         if ($workerId === 0 && getenv("runMode") === "online") {
             Timer::tick(60 * 1000, function() { sys_error("tick"); });
         }
+        // 记录worker的pid信息
+        $this->workerStore->put($workerId,posix_getpid(),0);
+
     }
 
     public function start()
