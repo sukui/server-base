@@ -11,7 +11,9 @@ class InitializeWorkerMonitor implements Bootable
     public function bootstrap($server)
     {
         $repository = make(Repository::class);
+        $server_config = $repository->get('server.config');
         $config = $repository->get('server.monitor');
+        $config['worker_num'] = $server_config['worker_num'];
         WorkerMonitor::getInstance()->init($server,$config);
     }
 }
