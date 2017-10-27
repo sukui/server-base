@@ -14,11 +14,13 @@ class InitializeServiceChain
     public function bootstrap($server, $workerId)
     {
         // make & initialize discovering serviceChain
-        if (getenv("runMode") !== "online") {
-            $container = Container::getInstance();
-            if ($container->has(ServiceChainer::class)) {
-                $container->make(ServiceChainer::class);
-            }
+        if (getenv("runMode") === "online") {
+            return;
+        }
+
+        $container = Container::getInstance();
+        if ($container->has(ServiceChainer::class)) {
+            $container->make(ServiceChainer::class);
         }
     }
 }
